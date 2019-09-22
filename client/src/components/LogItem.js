@@ -1,13 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Moment from 'react-moment';
+import {connect} from 'react-redux'
 
-const LogItem = ({ message, attention, id, technician, date }) => {
+import {setCurrent} from '../actions/logs'
+
+const LogItem = (props) => {
+  const { message, attention, id, technician, date } = props.log
+  const {setCurrent} = props
   return (
     <li className='collection-item'>
       <div>
         <a
           href='#edit-log-modal'
+          onClick={() => setCurrent(id)}
           className={`modal-trigger ${attention ? 'red-text' : 'blue-text'}`}
         >
           {message}
@@ -30,4 +36,4 @@ LogItem.propTypes = {
   log: PropTypes.object.isRequired
 };
 
-export default LogItem;
+export default connect(null,{setCurrent})(LogItem);

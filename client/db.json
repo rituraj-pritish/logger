@@ -6,6 +6,27 @@
       "attention": true,
       "date": "03-02-2019",
       "technician": "John Doe"
+    },
+    {
+      "id": 2,
+      "message": "Workstation posting",
+      "attention": false,
+      "date": "03-04-2019",
+      "technician": "Steve Smith"
+    },
+    {
+      "id": 3,
+      "message": "System Lagging",
+      "attention": true,
+      "date": "06-02-2019",
+      "technician": "Tri Pri"
+    },
+    {
+      "id": 4,
+      "message": "System Failure",
+      "attention": true,
+      "date": "03-03-2019",
+      "technician": "Aaron Finch"
     }
   ],
   "technicians": [
@@ -13,6 +34,26 @@
       "id": 1,
       "firstName": "John",
       "lastName": "Doe"
+    },
+    {
+      "id": 2,
+      "firstName": "Steve",
+      "lastName": "Smith"
+    },
+    {
+      "id": 3,
+      "firstName": "Aaron",
+      "lastName": "Finch"
+    },
+    {
+      "id": 4,
+      "firstName": "Tri",
+      "lastName": "Pri"
+    },
+    {
+      "firstName": "tony",
+      "lastName": "robbins",
+      "id": 5
     }
   ]
 }

@@ -1,23 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import LogItem from './LogItem';
 import Preloader from './layout/Preloader';
+import {connect} from 'react-redux'
 
-const Logs = () => {
-  const [logs, setLogs] = useState([]);
-  const [loading, setLoading] = useState(false);
+import {getLogs} from '../actions/logs'
+
+const Logs = ({getLogs,loading,logs}) => {
 
   useEffect(() => {
     getLogs();
   }, []);
-
-  const getLogs = async () => {
-    setLoading(true);
-    const res = await fetch('/logs');
-    const data = await res.json();
-
-    setLogs(data);
-    setLoading(false);
-  };
 
   if (loading) {
     return <Preloader/>;
@@ -31,10 +23,15 @@ const Logs = () => {
       {!loading && logs.length === 0 ? (
         <p className='center'>No Logs</p>
       ) : (
-        logs.map(log => <LogItem {...log} key={log.id} />)
+        logs.map(log => <LogItem log={log} key={log.id} />)
       )}
     </ul>
   );
 };
 
-export default Logs;
+const mapStateToProps = ({log}) => ({
+  logs: log.logs,
+  loading: log.loading
+})
+
+export default connect(mapStateToProps,{getLogs})(Logs);

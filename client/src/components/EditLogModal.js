@@ -1,14 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 
 import M from 'materialize-css/dist/js/materialize.min.js';
 
-const EditLogModal = () => {
+const EditLogModal = ({ currentLog }) => {
   const [data, setData] = useState({
     message: '',
     technician: ''
   });
   const [attention, setAttention] = useState(true);
   const { message, technician } = data;
+
+  //setting current log
+  useEffect(() => {
+    if (currentLog !== null) {
+      setData({
+        message: currentLog.message,
+        technician: currentLog.technician
+      });
+      setAttention(currentLog.attention);
+    }
+  }, [currentLog]);
 
   const handleChange = e => {
     setData({ ...data, [e.target.name]: [e.target.value] });
@@ -18,7 +30,6 @@ const EditLogModal = () => {
     if (message === '' || technician === '') {
       M.toast({ html: 'Message and Technician are required' });
     } else {
-      //action
       setData({
         message: '',
         technician: ''
@@ -30,7 +41,7 @@ const EditLogModal = () => {
   return (
     <div id='edit-log-modal' className='modal' style={style}>
       <div className='modal-content'>
-        <h4>Enter System Log</h4>
+        <h4>Edit Log</h4>
         <div className='row'>
           <div className='input-field'>
             <input
@@ -67,7 +78,7 @@ const EditLogModal = () => {
                   type='checkbox'
                   checked={attention}
                   value={attention}
-                  onClick={e => setAttention(!attention)}
+                  onChange={e => setAttention(!attention)}
                 />
                 <span>Needs Attention</span>
               </label>
@@ -93,4 +104,8 @@ const style = {
   height: '75%'
 };
 
-export default EditLogModal;
+const mapStateToProps = state => ({
+  currentLog: state.log.current
+});
+
+export default connect(mapStateToProps)(EditLogModal);

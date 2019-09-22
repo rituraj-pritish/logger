@@ -8,6 +8,7 @@ import AddBtn from './components/layout/AddBtn';
 import AddLogModal from './components/AddLogModal';
 import EditLogModal from './components/EditLogModal';
 import AddTechnicianModal from './components/AddTechnicianModal';
+import TechnicianList from './components/TechnicianList';
 
 function App() {
   useEffect(() => {
@@ -24,6 +25,7 @@ function App() {
       <AddLogModal/>
       <EditLogModal/>
       <AddTechnicianModal/>
+      <TechnicianList/>
     </div>
   );
 }
