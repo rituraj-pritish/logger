@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import M from 'materialize-css/dist/js/materialize.min.js';
+import {updateLog, clearCurrent} from '../actions/logs'
 
-const EditLogModal = ({ currentLog }) => {
+const EditLogModal = ({ currentLog, techs,loading,updateLog,clearCurrent }) => {
   const [data, setData] = useState({
     message: '',
     technician: ''
@@ -23,13 +24,23 @@ const EditLogModal = ({ currentLog }) => {
   }, [currentLog]);
 
   const handleChange = e => {
-    setData({ ...data, [e.target.name]: [e.target.value] });
+    setData({ ...data, [e.target.name]: e.target.value });
   };
 
   const onSubmit = () => {
     if (message === '' || technician === '') {
       M.toast({ html: 'Message and Technician are required' });
     } else {
+      const updatedLog = {
+        id: currentLog.id,
+        message,
+        attention,
+        technician,
+        //todo
+        // date: new Date()
+      }
+      updateLog(updatedLog)
+      clearCurrent()
       setData({
         message: '',
         technician: ''
@@ -63,8 +74,11 @@ const EditLogModal = ({ currentLog }) => {
               onChange={handleChange}
             >
               <option value='disabled'>Select</option>
-              <option value='John Doe'>John Doe</option>
-              <option value='Sam Smith'>Sam Smith</option>
+              {!loading && techs.map(({ id, firstName, lastName }) => (
+                <option key={id} value={`${firstName} ${lastName}`}>
+                  {firstName} {lastName}
+                </option>
+              ))}
             </select>
           </div>
         </div>
@@ -105,7 +119,9 @@ const style = {
 };
 
 const mapStateToProps = state => ({
-  currentLog: state.log.current
+  currentLog: state.log.current,
+  techs: state.tech.techs,
+  loading: state.tech.loading
 });
 
-export default connect(mapStateToProps)(EditLogModal);
+export default connect(mapStateToProps,{updateLog,clearCurrent})(EditLogModal);

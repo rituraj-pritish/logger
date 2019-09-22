@@ -4,11 +4,7 @@ import { connect } from 'react-redux';
 import { getTechs } from '../actions/techs';
 import TechnicianItem from './TechnicianItem';
 
-const TechnicianList = ({ getTechs, techs, loading }) => {
-  useEffect(() => {
-    getTechs();
-  }, []);
-;
+const TechnicianList = ({ techs, loading }) => {
 
   return (
     <div id='tech-list-modal' className='modal'>
@@ -29,6 +25,5 @@ const mapStateToProps = state => ({
 });
 
 export default connect(
-  mapStateToProps,
-  { getTechs }
+  mapStateToProps
 )(TechnicianList);

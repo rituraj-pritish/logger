@@ -1,6 +1,5 @@
 import {
   GET_LOGS,
-  SET_LOADING,
   ADD_LOG,
   DELETE_LOG,
   SET_CURRENT,
@@ -28,14 +27,7 @@ export const getLogs = () => async dispatch => {
   }
 };
 
-//set loading to false
-export const setLoading = () => ({
-  type: SET_LOADING,
-  payload: false
-});
-
 export const addLog = log => async dispatch => {
-  console.log(log);
   try {
     const res = await fetch('/logs', {
       method: 'POST',
@@ -56,8 +48,50 @@ export const addLog = log => async dispatch => {
   }
 };
 
-export const setCurrent = (id) => ({
+export const deleteLog = id => async dispatch => {
+  try {
+    fetch(`/logs/${id}`, {
+      method: 'DELETE'
+    });
+    dispatch({
+      type: DELETE_LOG,
+      payload: id
+    });
+  } catch (err) {
+    dispatch({
+      type: LOGS_ERROR,
+      payload: err.response.data
+    });
+  }
+};
+
+export const updateLog = (log) => async dispatch => {
+  console.log('up',log);
+  try {
+    const res = await fetch(`/logs/${log.id}`, {
+      method: 'PUT',
+      body: JSON.stringify(log),
+      headers: { 'Content-Type': 'application/json' }
+    });
+    const data = await res.json();
+
+    dispatch({
+      type: UPDATE_LOG,
+      payload: data
+    });
+  } catch (err) {
+    dispatch({
+      type: LOGS_ERROR,
+      payload: err.response.data
+    });
+  }
+};
+
+export const setCurrent = id => ({
   type: SET_CURRENT,
   payload: id
 });
 
+export const clearCurrent = () => ({
+  type: CLEAR_CURRENT
+});

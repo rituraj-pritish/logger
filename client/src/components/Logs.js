@@ -3,12 +3,14 @@ import LogItem from './LogItem';
 import Preloader from './layout/Preloader';
 import {connect} from 'react-redux'
 
+import { getTechs } from '../actions/techs';
 import {getLogs} from '../actions/logs'
 
-const Logs = ({getLogs,loading,logs}) => {
+const Logs = ({getTechs,getLogs,loading,logs}) => {
 
   useEffect(() => {
     getLogs();
+    getTechs();
   }, []);
 
   if (loading) {
@@ -21,7 +23,7 @@ const Logs = ({getLogs,loading,logs}) => {
         <h4 className='center'>System Logs</h4>
       </li>
       {!loading && logs.length === 0 ? (
-        <p className='center'>No Logs</p>
+        <p className='center'>No logs to show</p>
       ) : (
         logs.map(log => <LogItem log={log} key={log.id} />)
       )}
@@ -34,4 +36,4 @@ const mapStateToProps = ({log}) => ({
   loading: log.loading
 })
 
-export default connect(mapStateToProps,{getLogs})(Logs);
+export default connect(mapStateToProps,{getLogs,getTechs})(Logs);

@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import Moment from 'react-moment';
 import {connect} from 'react-redux'
 
-import {setCurrent} from '../actions/logs'
+
+import {setCurrent,deleteLog} from '../actions/logs'
 
 const LogItem = (props) => {
   const { message, attention, id, technician, date } = props.log
-  const {setCurrent} = props
+  const {setCurrent,deleteLog} = props
   return (
     <li className='collection-item'>
       <div>
@@ -25,7 +26,7 @@ const LogItem = (props) => {
           on <Moment format='MMMM Do YYYY,h:mm:ss a'>{date}</Moment>
         </span>
         <a href='#!' className='secondary-content'>
-          <i className='material-icons grey-text'>delete</i>
+          <i className='material-icons grey-text' onClick={() => deleteLog(id)}>delete</i>
         </a>
       </div>
     </li>
@@ -36,4 +37,4 @@ LogItem.propTypes = {
   log: PropTypes.object.isRequired
 };
 
-export default connect(null,{setCurrent})(LogItem);
+export default connect(null,{setCurrent,deleteLog})(LogItem);

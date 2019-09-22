@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react';
 import M from 'materialize-css/dist/js/materialize.min.js';
 
 import { addLog } from '../actions/logs';
-import { getTechs } from '../actions/techs';
 import { connect } from 'react-redux';
 
-const AddLogModal = ({ addLog, techs, getTechs, loading }) => {
+const AddLogModal = ({ addLog, techs, loading }) => {
   const [data, setData] = useState({
     message: '',
     technician: ''
@@ -13,14 +12,8 @@ const AddLogModal = ({ addLog, techs, getTechs, loading }) => {
   const [attention, setAttention] = useState(true);
   const { message, technician } = data;
 
-  console.log(techs);
-
-  useEffect(() => {
-    getTechs();
-  }, []);
-
   const handleChange = e => {
-    setData({ ...data, [e.target.name]: [e.target.value] });
+    setData({...data,[e.target.name]: e.target.value});
   };
 
   const onSubmit = () => {
@@ -114,5 +107,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { addLog, getTechs }
+  { addLog }
 )(AddLogModal);
