@@ -2,9 +2,10 @@
   "logs": [
     {
       "id": 1,
-      "message": "Do Something Now",
-      "attention": true,
-      "technician": "Steve Smith"
+      "message": "Don Jon",
+      "attention": false,
+      "technician": "tony robbins",
+      "date": "2019-09-23T05:53:28.758Z"
     }
   ],
   "technicians": [
@@ -27,11 +28,6 @@
       "id": 4,
       "firstName": "Tri",
       "lastName": "Pri"
-    },
-    {
-      "firstName": "tony",
-      "lastName": "robbins",
-      "id": 5
     }
   ]
 }

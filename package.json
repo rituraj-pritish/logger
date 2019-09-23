@@ -1,0 +1,15 @@
+{
+  "name": "log-manager",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    
+  },
+  "author": "RP",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^4.1.2",
+    "json-server": "^0.15.1"
+  }
+}

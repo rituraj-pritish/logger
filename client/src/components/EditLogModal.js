@@ -36,8 +36,7 @@ const EditLogModal = ({ currentLog, techs,loading,updateLog,clearCurrent }) => {
         message,
         attention,
         technician,
-        //todo
-        // date: new Date()
+        date: new Date()
       }
       updateLog(updatedLog)
       clearCurrent()

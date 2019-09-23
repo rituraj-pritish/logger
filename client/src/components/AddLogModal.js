@@ -13,14 +13,20 @@ const AddLogModal = ({ addLog, techs, loading }) => {
   const { message, technician } = data;
 
   const handleChange = e => {
-    setData({...data,[e.target.name]: e.target.value});
+    setData({ ...data, [e.target.name]: e.target.value });
   };
 
   const onSubmit = () => {
     if (message === '' || technician === '') {
       M.toast({ html: 'Message and Technician are required' });
     } else {
-      addLog({ message, technician, attention });
+      const newLog = {
+        message,
+        technician,
+        attention,
+        date: new Date()
+      };
+      addLog(newLog);
 
       setData({
         message: '',

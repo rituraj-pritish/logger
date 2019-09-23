@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 
+import { addTech } from '../actions/techs';
 import M from 'materialize-css/dist/js/materialize.min.js';
 
-const AddTechnicianModal = () => {
+const AddTechnicianModal = ({addTech}) => {
   const [data, setData] = useState({
     firstName: '',
     lastName: ''
   });
-  
+
   const { firstName, lastName } = data;
 
   const handleChange = e => {
@@ -17,13 +19,12 @@ const AddTechnicianModal = () => {
   const onSubmit = () => {
     if (firstName === '' || lastName === '') {
       M.toast({ html: 'Firstname and Lastname are required' });
-    }else {
-      //action
+    } else {
+      addTech({firstName,lastName});
       setData({
         firstName: '',
         lastName: ''
-      })
-
+      });
     }
   };
 
@@ -54,8 +55,6 @@ const AddTechnicianModal = () => {
             />
           </div>
         </div>
-
-
       </div>
       <div className='modal-footer'>
         <a
@@ -70,4 +69,4 @@ const AddTechnicianModal = () => {
   );
 };
 
-export default AddTechnicianModal;
+export default connect(null,{addTech})(AddTechnicianModal);
