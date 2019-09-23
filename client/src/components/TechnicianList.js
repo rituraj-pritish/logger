@@ -1,18 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
-import { getTechs } from '../actions/techs';
 import TechnicianItem from './TechnicianItem';
 
 const TechnicianList = ({ techs, loading }) => {
-
   return (
     <div id='tech-list-modal' className='modal'>
       <div className='modal-content'>
-        <h4>Technician List</h4>
+      <h4>Technician List</h4>
+        {!loading && techs.length ===0 &&   <h6>No Technicians added</h6>}
         <ul className='collection'>
           {!loading &&
-            techs.map(tech => <TechnicianItem key={tech.id} {...tech} />)}
+            techs.map(tech => <TechnicianItem key={tech._id} {...tech} />)}
         </ul>
       </div>
     </div>
@@ -24,6 +23,4 @@ const mapStateToProps = state => ({
   loading: state.tech.loading
 });
 
-export default connect(
-  mapStateToProps
-)(TechnicianList);
+export default connect(mapStateToProps)(TechnicianList);

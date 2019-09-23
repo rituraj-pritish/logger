@@ -4,7 +4,6 @@ import {
   DELETE_TECH,
   TECHS_ERROR
 } from '../actions/types';
-import { getTechs } from '../actions/techs';
 
 const initialState = {
   techs: null,
@@ -31,7 +30,7 @@ export default (state = initialState, action) => {
     case DELETE_TECH:
       return {
         ...state,
-        techs: state.techs.filter(tech => tech.id !== payload)
+        techs: state.techs.filter(tech => tech._id !== payload)
       };
     case TECHS_ERROR:
       return {

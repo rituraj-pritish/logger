@@ -2,14 +2,27 @@
   "name": "log-manager",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
+  "engines": {
+    "node": "10.16.3",
+    "npm": "6.11.3"
+  },
   "scripts": {
-    
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \" npm run server\" \"npm run client\" ",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "author": "RP",
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^4.1.2",
-    "json-server": "^0.15.1"
+    "json-server": "^0.15.1",
+    "nodemon": "^1.19.2"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.7.1"
   }
 }

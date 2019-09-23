@@ -7,6 +7,8 @@ export const UPDATE_LOG = 'UPDATE_LOG';
 export const CLEAR_LOGS = 'CLEAR_LOGS';
 export const LOGS_ERROR = 'LOGS_ERROR';
 export const SEARCH_LOGS = 'SEARCH_LOGS';
+export const SET_FILTERED = 'SET_FILTERED';
+export const CLEAR_FILTERED = 'CLEAR_FILTERED';
 
 export const GET_TECHS = 'GET_TECHS';
 export const ADD_TECH = 'ADD_TECH';

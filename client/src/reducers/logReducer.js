@@ -1,22 +1,21 @@
 import {
   GET_LOGS,
-  SET_LOADING,
   ADD_LOG,
   DELETE_LOG,
   SET_CURRENT,
   CLEAR_CURRENT,
   UPDATE_LOG,
-  CLEAR_LOGS,
   LOGS_ERROR,
-  SEARCH_LOGS
+  SET_FILTERED,
+  CLEAR_FILTERED
 } from '../actions/types';
-import { setCurrent } from '../actions/logs';
 
 const initialState = {
   logs: null,
   current: null,
   loading: true,
-  error: null
+  error: null,
+  filtered: null
 };
 
 export default (state = initialState, action) => {
@@ -32,37 +31,43 @@ export default (state = initialState, action) => {
     case ADD_LOG:
       return {
         ...state,
-        logs: [...state.logs, payload],
+        logs: [payload, ...state.logs],
         error: null
       };
     case DELETE_LOG:
       return {
         ...state,
-        logs: state.logs.filter(log => log.id !== payload),
+        logs: state.logs.filter(log => log._id !== payload),
         error: null,
         loading: false
       };
     case UPDATE_LOG:
       return {
         ...state,
-        logs: 
-          state.logs.map(log => {
-            if (log.id === payload.id) return payload;
-            return log;
-          })
-        ,
+        logs: state.logs.map(log => {
+          if (log._id === payload._id) return payload;
+          return log;
+        }),
         error: null,
         loading: false
       };
-    case SEARCH_LOGS:
-      return{
+    case SET_FILTERED:
+      return {
         ...state,
-        logs: payload
-      }
+        filtered: state.logs.filter(log => {
+          const regex = new RegExp(`${payload}`, 'gi');
+          return log.message.match(regex) || log.technician.match(regex);
+        })
+      };
+    case CLEAR_FILTERED:
+      return {
+        ...state,
+        filtered: null
+      };
     case SET_CURRENT:
       return {
         ...state,
-        current: state.logs.find(log => log.id === payload),
+        current: state.logs.find(log => log._id === payload),
         loading: false,
         error: null
       };

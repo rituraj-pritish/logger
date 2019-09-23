@@ -29,10 +29,10 @@ const EditLogModal = ({ currentLog, techs,loading,updateLog,clearCurrent }) => {
 
   const onSubmit = () => {
     if (message === '' || technician === '') {
-      M.toast({ html: 'Message and Technician are required' });
+      M.toast({ html: 'Message and Technician are required',classes: 'red lighten-2' });
     } else {
       const updatedLog = {
-        id: currentLog.id,
+        _id: currentLog._id,
         message,
         attention,
         technician,
@@ -73,8 +73,8 @@ const EditLogModal = ({ currentLog, techs,loading,updateLog,clearCurrent }) => {
               onChange={handleChange}
             >
               <option value='disabled'>Select</option>
-              {!loading && techs.map(({ id, firstName, lastName }) => (
-                <option key={id} value={`${firstName} ${lastName}`}>
+              {!loading && techs.map(({ _id, firstName, lastName }) => (
+                <option key={_id} value={`${firstName} ${lastName}`}>
                   {firstName} {lastName}
                 </option>
               ))}

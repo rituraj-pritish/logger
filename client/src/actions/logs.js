@@ -5,9 +5,9 @@ import {
   SET_CURRENT,
   CLEAR_CURRENT,
   UPDATE_LOG,
-  CLEAR_LOGS,
   LOGS_ERROR,
-  SEARCH_LOGS
+  SET_FILTERED,
+  CLEAR_FILTERED
 } from './types';
 
 export const getLogs = () => async dispatch => {
@@ -65,10 +65,9 @@ export const deleteLog = id => async dispatch => {
   }
 };
 
-export const updateLog = (log) => async dispatch => {
-  console.log('up',log);
+export const updateLog = log => async dispatch => {
   try {
-    const res = await fetch(`/logs/${log.id}`, {
+    const res = await fetch(`/logs/${log._id}`, {
       method: 'PUT',
       body: JSON.stringify(log),
       headers: { 'Content-Type': 'application/json' }
@@ -87,22 +86,14 @@ export const updateLog = (log) => async dispatch => {
   }
 };
 
-export const searchLogs = (text) => async dispatch => {
-  try {
-    const res = await fetch(`/logs?q=${text}`);
-    const data = await res.json();
+export const filterLogs = text => ({
+  type: SET_FILTERED,
+  payload: text
+});
 
-    dispatch({
-      type: SEARCH_LOGS,
-      payload: data
-    });
-  } catch (err) {
-    dispatch({
-      type: LOGS_ERROR,
-      payload: err.response.data
-    });
-  }
-};
+export const clearFiltered = () => ({
+  type: CLEAR_FILTERED
+});
 
 export const setCurrent = id => ({
   type: SET_CURRENT,

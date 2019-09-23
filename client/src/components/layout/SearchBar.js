@@ -1,22 +1,30 @@
-import React,{useRef} from 'react';
-import {connect} from 'react-redux'
-import PropTypes from 'prop-types';
+import React, { useRef } from 'react';
+import { connect } from 'react-redux';
 
-import {searchLogs} from '../../actions/logs'
+import { filterLogs, clearFiltered } from '../../actions/logs';
 
-const SearchBar = ({searchLogs}) => {
+const SearchBar = ({ filterLogs, clearFiltered }) => {
   const text = useRef('');
 
   const handleChange = () => {
-    searchLogs(text.current.value)
-  }
+    if (text.current.value === '') {
+      clearFiltered();
+    }
+    filterLogs(text.current.value);
+  };
 
   return (
-    <nav style={{marginBottom: '30px'}} className='blue' >
+    <nav style={{ marginBottom: '30px' }} className='blue'>
       <div className='nav-wrapper'>
         <form>
           <div className='input-field'>
-            <input id='search' placeholder='search logs...' type='search' ref={text} onChange={handleChange} />
+            <input
+              id='search'
+              placeholder='search logs...'
+              type='search'
+              ref={text}
+              onChange={handleChange}
+            />
             <label className='label-icon' htmlFor='search'>
               <i className='material-icons'>search</i>
             </label>
@@ -28,8 +36,7 @@ const SearchBar = ({searchLogs}) => {
   );
 };
 
-SearchBar.propTypes = {
-  searchLogs: PropTypes.func.isRequired
-}
-
-export default connect(null,{searchLogs})(SearchBar);
+export default connect(
+  null,
+  { filterLogs, clearFiltered }
+)(SearchBar);

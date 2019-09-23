@@ -13,12 +13,12 @@ const AddTechnicianModal = ({addTech}) => {
   const { firstName, lastName } = data;
 
   const handleChange = e => {
-    setData({ ...data, [e.target.name]: [e.target.value] });
+    setData({ ...data, [e.target.name]: e.target.value});
   };
 
   const onSubmit = () => {
     if (firstName === '' || lastName === '') {
-      M.toast({ html: 'Firstname and Lastname are required' });
+      M.toast({ html: 'Firstname and Lastname are required',classes: 'red lighten-2' });
     } else {
       addTech({firstName,lastName});
       setData({

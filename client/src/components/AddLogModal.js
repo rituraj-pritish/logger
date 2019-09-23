@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import M from 'materialize-css/dist/js/materialize.min.js';
 
 import { addLog } from '../actions/logs';
@@ -18,7 +18,7 @@ const AddLogModal = ({ addLog, techs, loading }) => {
 
   const onSubmit = () => {
     if (message === '' || technician === '') {
-      M.toast({ html: 'Message and Technician are required' });
+      M.toast({ html: 'Message and Technician are required',classes: 'red lighten-2' });
     } else {
       const newLog = {
         message,
@@ -62,8 +62,8 @@ const AddLogModal = ({ addLog, techs, loading }) => {
             >
               <option value='disabled'>Select</option>
               {!loading &&
-                techs.map(({ id, firstName, lastName }) => (
-                  <option key={id} value={`${firstName} ${lastName}`}>
+                techs.map(({ _id, firstName, lastName }) => (
+                  <option key={_id} value={`${firstName} ${lastName}`}>
                     {firstName} {lastName}
                   </option>
                 ))}
