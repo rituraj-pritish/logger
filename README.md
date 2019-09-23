@@ -1,11 +1,11 @@
 A log manager to track issues.
 
-Technologies:
+* Technologies:
 
-  *Frontend: **React**
+  * Frontend: **React**
    
-    *Styling: **MaterializeCss**
+  * Styling: **MaterializeCss**
   
-  *Backend: **Node,Express,MonoDB**
+  * Backend: **Node,Express,MonoDB**
   
   checkout the app [here](https://logger-logger-logger.herokuapp.com)
